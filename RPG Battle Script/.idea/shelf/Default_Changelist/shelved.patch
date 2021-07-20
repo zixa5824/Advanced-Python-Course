@@ -1,0 +1,132 @@
+Index: classes/game.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import random\r\n\r\n\r\nclass Bcolors:\r\n    HEADER = '\\033[95m'\r\n    OKBLUE = '\\033[94m'\r\n    OKGREEN = '\\033[92m'\r\n    WARNING = '\\033[93m'\r\n    FAIL = '\\033[91m'\r\n    ENDC = '\\033[0m'\r\n    BOLD = '\\033[1m'\r\n    UNDERLINE = '\\033[4m'\r\n\r\n\r\nclass Person:\r\n    def __init__(self, hp, mp, atk, df, magic):\r\n        self.maxHp = hp\r\n        self.hp = hp\r\n        self.maxMp = mp\r\n        self.mp = mp\r\n        self.atkLow = atk - 10\r\n        self.atkHigh = atk + 10\r\n        self.df = df\r\n        self.magic = magic\r\n        self.actions = [\"Attack\", \"Magic\"]\r\n\r\n    def generate_damage(self):\r\n        return random.randrange(self.atkLow, self.atkHigh)\r\n\r\n    def generate_spell_damage(self, i):\r\n        mgl = self.magic[i][\"dmg\"] - 5\r\n        mgh = self.magic[i][\"dmg\"] + 5\r\n        return random.randrange(mgl, mgh)\r\n\r\n    def take_damage(self, dmg):\r\n        self.hp -= dmg\r\n        if self.hp < 0:\r\n            self.hp = 0\r\n        return self.hp\r\n\r\n    def get_hp(self):\r\n        return self.hp\r\n\r\n    def get_max_hp(self):\r\n        return self.maxHp\r\n\r\n    def get_mp(self):\r\n        return self.mp\r\n\r\n    def get_max_mp(self):\r\n        return self.maxMp\r\n\r\n    def reduce_mp(self, cost):\r\n        self.mp -= cost\r\n\r\n    def get_spell_name(self, i):\r\n        return self.magic[i][\"name\"]\r\n\r\n    def get_spell_mp_cost(self, i):\r\n        return self.magic[i][\"cost\"]\r\n\r\n    def choose_action(self):\r\n        i = 1\r\n        print(\"Actions\")\r\n        for item in self.actions:\r\n            print(str(i) + \":\", item)\r\n            i += 1\r\n\r\n    def choose_magic(self):\r\n        i = 1\r\n        print(\"Magic\")\r\n        for spell in self.magic:\r\n            print(str(i) + \":\", spell[\"name\"], \"(cost:\", str(spell[\"mp\"]) + \")\")\r\n            i += 1\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/classes/game.py b/classes/game.py
+--- a/classes/game.py	(revision b9580249753af9f81aad29e61796db68ca1845b1)
++++ b/classes/game.py	(date 1626771004847)
+@@ -70,5 +70,5 @@
+         i = 1
+         print("Magic")
+         for spell in self.magic:
+-            print(str(i) + ":", spell["name"], "(cost:", str(spell["mp"]) + ")")
++            print(str(i) + ":", spell["name"], "(cost:", str(spell["cost"]) + ")")
+             i += 1
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"f7d703f6-60b2-47d1-8013-56ea89200234\" name=\"Default Changelist\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/classes/__init__.py\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/classes/game.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/main.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/main.py\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1vHhdrGlCjHGwO1ayTyCGnxw0s6\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"main\" type=\"PythonConfigurationType\" factoryName=\"Python\" nameIsGenerated=\"true\">\r\n      <module name=\"RPG Battle Script\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/main.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"f7d703f6-60b2-47d1-8013-56ea89200234\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1626225011465</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1626225011465</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision b9580249753af9f81aad29e61796db68ca1845b1)
++++ b/.idea/workspace.xml	(date 1626772387838)
+@@ -2,9 +2,8 @@
+ <project version="4">
+   <component name="ChangeListManager">
+     <list default="true" id="f7d703f6-60b2-47d1-8013-56ea89200234" name="Default Changelist" comment="">
+-      <change afterPath="$PROJECT_DIR$/classes/__init__.py" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/classes/game.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/classes/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/game.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -22,6 +21,14 @@
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+   </component>
++  <component name="GitSEFilterConfiguration">
++    <file-type-list>
++      <filtered-out-file-type name="LOCAL_BRANCH" />
++      <filtered-out-file-type name="REMOTE_BRANCH" />
++      <filtered-out-file-type name="TAG" />
++      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
++    </file-type-list>
++  </component>
+   <component name="ProjectId" id="1vHhdrGlCjHGwO1ayTyCGnxw0s6" />
+   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+   <component name="ProjectViewState">
+@@ -76,5 +83,6 @@
+         </entry>
+       </map>
+     </option>
++    <option name="oldMeFiltersMigrated" value="true" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: main.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from classes.game import Person, Bcolors\r\n\r\nmagic = [{\"name\": \"Fire\", \"cost\": \"10\", \"dmg\": 60},\r\n         {\"name\": \"Thunder\", \"cost\": \"10\", \"dmg\": 80},\r\n         {\"name\": \"Blizzard\", \"cost\": \"10\", \"dmg\": 60}]\r\n\r\nplayer = Person(460, 65, 60, 34, magic)\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/main.py b/main.py
+--- a/main.py	(revision b9580249753af9f81aad29e61796db68ca1845b1)
++++ b/main.py	(date 1626772895339)
+@@ -1,8 +1,57 @@
+ from classes.game import Person, Bcolors
+ 
+-magic = [{"name": "Fire", "cost": "10", "dmg": 60},
+-         {"name": "Thunder", "cost": "10", "dmg": 80},
+-         {"name": "Blizzard", "cost": "10", "dmg": 60}]
++magic = [{"name": "Fire", "cost": "10", "dmg": 100},
++         {"name": "Thunder", "cost": "10", "dmg": 124},
++         {"name": "Blizzard", "cost": "10", "dmg": 100}]
+ 
+ player = Person(460, 65, 60, 34, magic)
++enemy = Person(1200, 65, 45, 25, magic)
++
++running = True
++i = 0
+ 
++print(Bcolors.FAIL + Bcolors.BOLD + "AN ENEMY ATTACKS!" + Bcolors.ENDC)
++
++while running:
++    print("==================================")
++    player.choose_action()
++    choice = input("Choose action\n")
++    index = int(choice) - 1
++
++    if index == 0:
++        dmg = player.generate_damage()
++        enemy.take_damage(dmg)
++        print("You attacked for", dmg, "points of damage.")
++
++    elif index == 1:
++        player.choose_magic()
++        magic_choice = int(input("Choose magic:")) - 1
++        magic_dmg = player.generate_spell_damage(magic_choice)
++        spell = player.get_spell_name(magic_choice)
++        cost = int(player.get_spell_mp_cost(magic_choice))
++
++        curr_mp = player.get_mp()
++
++        if cost > curr_mp:
++            print(Bcolors.FAIL + "Not enough MP\n" + Bcolors.ENDC)
++            continue
++
++        player.reduce_mp(cost)
++        enemy.take_damage(magic_dmg)
++        print(Bcolors.OKBLUE + "\n" + spell + " deals", str(magic_dmg), "points of damage" + Bcolors.ENDC)
++    enemy_choice = 1
++    enemy_dmg = enemy.generate_damage()
++    player.take_damage(enemy_dmg)
++    print("Enemy attacks for ", enemy_dmg)
++
++    print("==================================")
++    print("Enemy HP:", Bcolors.FAIL + str(enemy.get_hp()) + "/" + str(enemy.get_max_hp()) + Bcolors.ENDC + "\n")
++    print("Your HP:", Bcolors.OKGREEN + str(player.get_hp()) + "/" + str(player.get_max_hp()) + Bcolors.ENDC + "\n")
++    print("Your MP:", Bcolors.OKBLUE + str(player.get_mp()) + "/" + str(player.get_max_mp()) + Bcolors.ENDC + "\n")
++
++    if enemy.get_hp() == 0:
++        print(Bcolors.OKGREEN + "You win!" + Bcolors.ENDC)
++        running = False
++    elif player.get_hp() == 0:
++        print(Bcolors.FAIL + "You've been defeated!" + Bcolors.ENDC)
++        running = False
